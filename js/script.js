@@ -126,10 +126,12 @@ var closeButton = document.querySelector('.close-btn');
 
 function openModal() {
     modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
     modal.style.display = 'none';
+    document.body.style.overflow = '';
 }
 
 for (var k = 0; k < openButtons.length; k++) {
@@ -146,4 +148,32 @@ window.addEventListener('click', function(event) {
         closeModal();
     }
 });
+
+// живые показатели: пульс и уровень страха
+var currentPulse = 143;
+var currentFear  = 42;
+
+function nudge(val, delta, min, max) {
+    var next = val + (Math.random() * delta * 2 - delta);
+    next = Math.round(next);
+    if (next < min) next = min;
+    if (next > max) next = max;
+    return next;
+}
+
+function tickVitals() {
+    currentPulse = nudge(currentPulse, 4, 120, 162);
+    currentFear  = nudge(currentFear, 2, 28, 62);
+
+    var ph = document.getElementById('pulse-home');
+    var pp = document.getElementById('pulse-profile');
+    var fv = document.getElementById('fear-val');
+
+    if (ph) ph.textContent = 'Пульс Исаака: ' + currentPulse + 'уд/мин';
+    if (pp) pp.textContent = currentPulse + 'уд/мин';
+    if (fv) fv.textContent = currentFear + '%';
+}
+
+tickVitals();
+setInterval(tickVitals, 2000);
 

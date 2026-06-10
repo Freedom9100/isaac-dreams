@@ -1,3 +1,18 @@
+<?php
+// Если уже авторизован — на профиль
+if (isset($_SESSION['user_id'])) {
+    header('Location: index.php?page=profile');
+    exit;
+}
+
+// Текст ошибки по коду из GET-параметра
+$error_messages = [
+    'empty' => 'Заполни все поля.',
+    'wrong' => 'Неверный логин или пароль.',
+    'db'    => 'Ошибка базы данных. Убедитесь что таблицы созданы.',
+];
+$error = isset($_GET['error']) ? ($error_messages[$_GET['error']] ?? '') : '';
+?>
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -19,11 +34,7 @@
 
         <!-- левая часть — анимация тени -->
         <div class="auth-left">
-
-            <!-- слой 1: canvas — дрейфующие дымовые частицы -->
             <canvas class="shadow-canvas" id="shadow-canvas"></canvas>
-
-            <!-- слой 2: svg — органичный туман через feTurbulence -->
             <svg class="shadow-fog" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
                 <defs>
                     <filter id="fog" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
@@ -39,10 +50,7 @@
                 </defs>
                 <rect width="100%" height="100%" fill="rgba(200,200,205,0.06)" filter="url(#fog)"/>
             </svg>
-
-            <!-- слой 3: css — размытый силуэт тени, пересекает панель -->
             <div class="shadow-figure"></div>
-
         </div>
 
         <!-- правая часть — форма -->
@@ -50,10 +58,13 @@
             <div class="auth-card">
 
                 <span class="auth-tag">[ Страница 001 ]</span>
-
                 <h1 class="auth-title">Шаг в темноту</h1>
 
-                <form class="auth-form" action="#" method="post">
+                <?php if ($error): ?>
+                    <p class="auth-error"><?= htmlspecialchars($error) ?></p>
+                <?php endif; ?>
+
+                <form class="auth-form" action="actions/login_action.php" method="post">
 
                     <div class="form-group">
                         <label class="form-label" for="email">Имя спящего</label>
@@ -64,6 +75,7 @@
                                 id="email"
                                 name="email"
                                 placeholder="example@dormant.ru"
+                                value="<?= htmlspecialchars($_GET['email'] ?? '') ?>"
                                 required>
                         </div>
                     </div>
@@ -90,7 +102,7 @@
 
                 <p class="auth-note">
                     Твои страхи ещё не записаны?
-                    <a href="register.html" class="auth-link">Создать кошмар</a>
+                    <a href="index.php?page=register" class="auth-link">Создать кошмар</a>
                 </p>
 
             </div>
@@ -98,21 +110,7 @@
 
     </div>
 
-    <script>
-        // переключение видимости пароля
-        var toggleBtn = document.getElementById('toggle-password');
-        var passwordInput = document.getElementById('password');
-
-        toggleBtn.addEventListener('click', function() {
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                passwordInput.placeholder = '';
-            } else {
-                passwordInput.type = 'password';
-                passwordInput.placeholder = '··········';
-            }
-        });
-    </script>
+    <script src="js/auth.js"></script>
     <script src="js/auth-animation.js"></script>
 
 </body>

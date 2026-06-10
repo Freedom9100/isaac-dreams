@@ -1,3 +1,20 @@
+<?php
+// Если уже авторизован — на профиль
+if (isset($_SESSION['user_id'])) {
+    header('Location: index.php?page=profile');
+    exit;
+}
+
+// Текст ошибки по коду из GET-параметра
+$error_messages = [
+    'empty'    => 'Заполни все поля.',
+    'mismatch' => 'Пароли не совпадают.',
+    'short'    => 'Пароль должен быть не менее 6 символов.',
+    'exists'   => 'Этот email уже зарегистрирован.',
+    'db'       => 'Ошибка базы данных. Убедитесь что таблицы созданы (database.sql).',
+];
+$error = isset($_GET['error']) ? ($error_messages[$_GET['error']] ?? '') : '';
+?>
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -19,11 +36,7 @@
 
         <!-- левая часть — анимация тени -->
         <div class="auth-left">
-
-            <!-- слой 1: canvas — дрейфующие дымовые частицы -->
             <canvas class="shadow-canvas" id="shadow-canvas"></canvas>
-
-            <!-- слой 2: svg — органичный туман через feTurbulence -->
             <svg class="shadow-fog" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
                 <defs>
                     <filter id="fog" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
@@ -39,10 +52,7 @@
                 </defs>
                 <rect width="100%" height="100%" fill="rgba(200,200,205,0.06)" filter="url(#fog)"/>
             </svg>
-
-            <!-- слой 3: css — размытый силуэт тени, пересекает панель -->
             <div class="shadow-figure"></div>
-
         </div>
 
         <!-- правая часть — форма -->
@@ -50,10 +60,13 @@
             <div class="auth-card">
 
                 <span class="auth-tag">[ Страница 002 ]</span>
-
                 <h1 class="auth-title">Первое погружение</h1>
 
-                <form class="auth-form" action="#" method="post">
+                <?php if ($error): ?>
+                    <p class="auth-error"><?= htmlspecialchars($error) ?></p>
+                <?php endif; ?>
+
+                <form class="auth-form" action="actions/register_action.php" method="post">
 
                     <div class="form-group">
                         <label class="form-label" for="name">Кодовое имя</label>
@@ -64,6 +77,7 @@
                                 id="name"
                                 name="name"
                                 placeholder="Иван Иванов"
+                                value="<?= htmlspecialchars($_GET['name'] ?? '') ?>"
                                 required>
                         </div>
                     </div>
@@ -77,11 +91,11 @@
                                 id="email"
                                 name="email"
                                 placeholder="example@dormant.ru"
+                                value="<?= htmlspecialchars($_GET['email'] ?? '') ?>"
                                 required>
                         </div>
                     </div>
 
-                    <!-- два поля пароля в одну строку -->
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label" for="password">Код пробуждения</label>
@@ -121,7 +135,7 @@
 
                 <p class="auth-note">
                     Уже бродили по этим коридорам?
-                    <a href="login.html" class="auth-link">Вернуться в систему</a>
+                    <a href="index.php?page=login" class="auth-link">Вернуться в систему</a>
                 </p>
 
             </div>
@@ -129,24 +143,7 @@
 
     </div>
 
-    <script>
-        function toggleInput(btnId, inputId) {
-            var btn = document.getElementById(btnId);
-            var input = document.getElementById(inputId);
-            btn.addEventListener('click', function() {
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    input.placeholder = '';
-                } else {
-                    input.type = 'password';
-                    input.placeholder = '··········';
-                }
-            });
-        }
-
-        toggleInput('toggle-password', 'password');
-        toggleInput('toggle-confirm', 'password-confirm');
-    </script>
+    <script src="js/auth.js"></script>
     <script src="js/auth-animation.js"></script>
 
 </body>
