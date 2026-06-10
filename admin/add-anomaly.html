@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генерация нового сектора — Сны Исаака</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="admin-layout">
+
+    <!-- сайдбар -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+        <div class="sidebar-top">
+            <span class="sidebar-logo-title">Сны Исаака</span>
+            <span class="sidebar-logo-sub">Административная панель</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="subjects.html">[ Субъекты ]</a>
+            <a href="artifacts.html">[ Артефакты ]</a>
+            <a href="anomalies.html" class="active">[ Аномалии ]</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../login.html" class="sidebar-logout">
+                <img src="../assets/icons/logout.svg" alt="">
+                [ Выход ]
+            </a>
+        </div>
+    </aside>
+
+    <!-- основной контент -->
+    <main class="admin-main">
+
+        <!-- мобильный топбар -->
+        <div class="admin-topbar">
+            <span class="admin-topbar-logo">Сны Исаака</span>
+            <button class="admin-burger" id="admin-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <div class="admin-page-header">
+            <div class="admin-back-wrap">
+                <a href="anomalies.html" class="admin-back-link">← Назад</a>
+                <h1 class="admin-title">Генерация нового сектора</h1>
+            </div>
+        </div>
+
+        <div class="admin-form-card">
+            <form action="#" method="post">
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label class="form-label" for="sector-name">Название сектора</label>
+                        <input class="form-input" type="text" id="sector-name" name="sector-name" placeholder="Введите идентификатор">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="sector-artifact">Привязанный артефакт</label>
+                        <select class="form-select" id="sector-artifact" name="sector-artifact">
+                            <option value="" disabled selected>Выбрать артефакт...</option>
+                            <option value="1">Коронованная слеза</option>
+                            <option value="2">Разбитое зеркало</option>
+                            <option value="3">Вагонетка с алмазами</option>
+                            <option value="4">Тень</option>
+                            <option value="5">Ключ света</option>
+                            <option value="6">Плюшевый мишка</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="sector-lore">Сюжетная сводка (лор) *</label>
+                    <textarea class="form-textarea" id="sector-lore" name="sector-lore" placeholder="Опишите параметры аномалии..."></textarea>
+                </div>
+
+                <label class="form-upload-label">Загрузить визуал сектора (PNG/JPG)</label>
+                <div class="drop-zone" id="drop-zone">
+                    <input type="file" id="file-input" accept=".png,.jpg,.jpeg">
+                    <img src="../assets/icons/image-download.svg" alt="" class="drop-zone-icon">
+                    <span class="drop-zone-text" id="drop-text">Перетащите файл или нажмите здесь</span>
+                    <span class="drop-zone-filename" id="drop-filename"></span>
+                </div>
+
+                <label class="form-check">
+                    <input type="checkbox" name="active" id="active">
+                    <span class="form-check-label">Активировать сектор</span>
+                </label>
+
+                <button type="submit" class="btn btn-dark w-100">Создать аномалию</button>
+            </form>
+        </div>
+
+    </main>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

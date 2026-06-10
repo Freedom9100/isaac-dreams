@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль — Сны Исаака</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;900&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- фиксированные края страницы — future: include 'includes/page-edges.php' -->
+    <div id="page-edges">
+        <canvas id="edge-canvas"></canvas>
+    </div>
+
+    <!-- шапка -->
+    <header class="header">
+        <div class="container header-inner">
+            <div class="logo">
+                <a href="index.html"><img src="assets/logo.svg" alt="Сны Исаака"></a>
+            </div>
+            <nav class="nav">
+                <a href="index.html#protocol">Протокол</a>
+                <a href="index.html#trials">Испытания</a>
+                <a href="index.html#inventory">Инвентарь</a>
+                <a href="index.html#faq">FAQ</a>
+            </nav>
+            <button class="btn btn-dark"><a href="login.html"></a>Войти в систему</a></button>
+            <button class="burger" id="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- мобильное меню -->
+    <div class="mobile-overlay" id="mobile-overlay">
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="mobile-menu-top">
+                <button class="mobile-menu-close" id="mobile-menu-close">
+                    <img src="assets/icons/close.svg" alt="Закрыть">
+                </button>
+            </div>
+            <nav class="mobile-menu-nav">
+                <a href="index.html#protocol">> Протокол</a>
+                <a href="index.html#trials">> Испытания</a>
+                <a href="index.html#inventory">> Инвентарь</a>
+                <a href="index.html#faq">> FAQ</a>
+            </nav>
+            <div class="mobile-menu-footer">
+                <button class="btn btn-light w-100">Войти в систему</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- контент профиля -->
+    <main class="profile-page">
+        <div class="container profile-layout">
+
+            <!-- левый сайдбар -->
+            <aside class="sidebar">
+                <div class="sidebar-header">// Статус_погружения</div>
+
+                <div class="sidebar-stats">
+                    <div class="stat-row">
+                        <span class="stat-label">Идентификатор спящего:</span>
+                        <span class="stat-value">dormant_01</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Кодовое имя:</span>
+                        <span class="stat-value">Иван Иванов</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Связь:</span>
+                        <span class="stat-value">example@dormant.ru</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Уровень страха:</span>
+                        <span class="stat-value accent">42%</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Пульс Исаака:</span>
+                        <span class="stat-value">143уд/мин</span>
+                    </div>
+                </div>
+
+                <!-- блок синхронизации -->
+                <div class="sidebar-preview">
+                    <span class="sync-text">Синхронизация<br>сна</span>
+                    <div class="sync-bar">
+                        <div class="sync-bar-fill"></div>
+                    </div>
+                </div>
+
+                <div class="sidebar-actions">
+                    <button class="btn-sidebar-light">
+                        <img src="assets/icons/pen.svg" alt="">
+                        Коррекция параметров
+                    </button>
+                    <button class="btn-sidebar-dark">
+                        <img src="assets/icons/logout.svg" alt="">
+                        Проснуться
+                    </button>
+                </div>
+            </aside>
+
+            <!-- правая карточка -->
+            <div class="fragments-card">
+                <h1 class="fragments-title">Фрагменты памяти</h1>
+                <div class="fragments-meta">
+                    <span class="fragments-path">Сознание/Исаак/Собранный_свет</span>
+                    <span class="fragments-tag">[ Ядро памяти ] // Аномалии</span>
+                </div>
+
+                <div class="sector-list">
+
+                    <!-- сектор 01 — пройден -->
+                    <div class="sector-row">
+                        <div class="sector-left">
+                            <span class="sector-symbol">├─</span>
+                            <span class="sector-label">[ Сектор 01 // Пройден ]</span>
+                        </div>
+                        <img src="assets/images/stickers/tear_sticker-1.png" alt="Артефакт 01" class="sector-sticker">
+                        <div class="sector-right">
+                            <a href="assets/images/stickers/tear_sticker-1.png" download="artifact-01-tear.png" class="btn-artifact" target="_blank">
+                                <img src="assets/icons/download.svg" alt="">
+                                <span>Получить артефакт</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- сектор 02 — пройден -->
+                    <div class="sector-row">
+                        <div class="sector-left">
+                            <span class="sector-symbol">├─</span>
+                            <span class="sector-label">[ Сектор 02 // Пройден ]</span>
+                        </div>
+                        <img src="assets/images/stickers/mirror_sticker-2.png" alt="Артефакт 02" class="sector-sticker">
+                        <div class="sector-right">
+                            <a href="assets/images/stickers/mirror_sticker-2.png" download="artifact-02-mirror.png" class="btn-artifact" target="_blank">
+                                <img src="assets/icons/download.svg" alt="">
+                                <span>Получить артефакт</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- сектор 03 — пройден -->
+                    <div class="sector-row">
+                        <div class="sector-left">
+                            <span class="sector-symbol">├─</span>
+                            <span class="sector-label">[ Сектор 03 // Пройден ]</span>
+                        </div>
+                        <img src="assets/images/stickers/diamonds_sticker-3.png" alt="Артефакт 03" class="sector-sticker">
+                        <div class="sector-right">
+                            <a href="assets/images/stickers/diamonds_sticker-3.png" download="artifact-03-diamonds.png" class="btn-artifact" target="_blank">
+                                <img src="assets/icons/download.svg" alt="">
+                                <span>Получить артефакт</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- сектор 04 — в процессе -->
+                    <div class="sector-row">
+                        <div class="sector-left">
+                            <span class="sector-symbol">├─</span>
+                            <span class="sector-label">[ Сектор 04 // Поглощён сном ]</span>
+                        </div>
+                        <div class="sector-right full">
+                            <button class="btn-dive"><span>Начать погружение</span></button>
+                        </div>
+                    </div>
+
+                    <!-- сектор 05 — заблокирован -->
+                    <div class="sector-row">
+                        <div class="sector-left">
+                            <span class="sector-symbol">├─</span>
+                            <span class="sector-label muted">[ Сектор 05 // Скрыт во тьме ]</span>
+                        </div>
+                        <div class="sector-right full">
+                            <button class="btn-deep" disabled><span>Глубоко в памяти</span></button>
+                        </div>
+                    </div>
+
+                    <!-- сектор 06 — заблокирован -->
+                    <div class="sector-row">
+                        <div class="sector-left">
+                            <span class="sector-symbol">└─</span>
+                            <span class="sector-label muted">[ Сектор 06 // Скрыт во тьме ]</span>
+                        </div>
+                        <div class="sector-right full">
+                            <button class="btn-deep" disabled><span>Глубоко в памяти</span></button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="fragments-end">// Конец сновидения</div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- подвал -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-logo">
+                <img src="assets/logo-white.svg" alt="Сны Исаака">
+            </div>
+            <div class="footer-links">
+                <a href="#">Политика конфиденциальности</a>
+                <a href="#">Согласие на обработку данных</a>
+            </div>
+            <div class="footer-contacts">
+                <p>г. Казань, ул. Николая Ершова 66А</p>
+                <a href="mailto:emil.radikovich@vinteno.com">emil.radikovich@vinteno.com</a>
+                <a href="tel:+79397228194">+7 939-722-81-94</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>© 2026 // Тухватуллин Эмиль 325ВЕБ</p>
+            <div class="social-links">
+                <a href="#" class="social-item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_profile_1)">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M4 2H22V4H4V2ZM2 4H6V20H2V4ZM20 4H22V16H20V4ZM12 8H14V12H12V8ZM16 8H18V12H16V8ZM18 16H20V18H18V16ZM6 18H8V24H6V18ZM12 18H18V20H12V18ZM4 20H6V24H4V20ZM10 20H14V22H10V20ZM8 22H10V24H8V22Z" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_profile_1">
+                                <rect width="24" height="24" fill="white" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </a>
+                <a href="#" class="social-item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M12 2H18V4H12V2ZM12 4H14V18H12V4ZM18 4H20V6H18V4ZM16 6H18V20H16V6ZM20 6H22V10H20V6ZM8 8H12V10H8V8ZM18 8H20V10H18V8ZM6 10H8V12H6V10ZM4 12H6V18H4V12ZM10 12H12V14H10V12ZM8 14H10V16H8V14ZM10 16H12V18H10V16ZM6 18H8V20H6V18ZM8 20H16V22H8V20Z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/page-edges.js"></script>
+
+</body>
+
+</html>
