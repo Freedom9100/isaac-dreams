@@ -20,8 +20,13 @@ if (!$sticker) {
 }
 
 $error = '';
-if (isset($_GET['error']) && $_GET['error'] === 'empty') {
-    $error = 'Название обязательно для заполнения.';
+if (isset($_GET['error'])) {
+    switch ($_GET['error']) {
+        case 'title_empty': $error = 'Ошибка: название обязательно для заполнения.'; break;
+        case 'title_long':  $error = 'Ошибка: название не должно превышать 20 символов.'; break;
+        case 'desc_long':   $error = 'Ошибка: описание не должно превышать 500 символов.'; break;
+        case 'filetype':    $error = 'Ошибка: допустимые форматы изображения — JPG, PNG.'; break;
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -48,7 +53,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'empty') {
         <?php endif; ?>
 
         <div class="admin-form-card">
-            <form method="post" action="actions/update_artifact.php" enctype="multipart/form-data">
+            <form method="post" action="actions/update_artifact.php" enctype="multipart/form-data" novalidate>
                 <input type="hidden" name="id" value="<?= $sticker['id'] ?>">
                 <input type="hidden" name="old_file_path" value="<?= htmlspecialchars($sticker['file_path']) ?>">
 
@@ -56,12 +61,12 @@ if (isset($_GET['error']) && $_GET['error'] === 'empty') {
                     <div>
                         <div class="form-group">
                             <label class="form-label">Название артефакта</label>
-                            <input type="text" name="title" class="form-input" value="<?= htmlspecialchars($sticker['title']) ?>" required>
+                            <input type="text" name="title" class="form-input" value="<?= htmlspecialchars($sticker['title']) ?>" maxlength="20">
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">Описание</label>
-                            <textarea name="description" class="form-textarea"><?= htmlspecialchars($sticker['description']) ?></textarea>
+                            <textarea name="description" class="form-textarea" maxlength="500"><?= htmlspecialchars($sticker['description']) ?></textarea>
                         </div>
 
                         <label class="form-check">

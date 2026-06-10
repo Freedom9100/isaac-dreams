@@ -18,7 +18,15 @@ $active      = isset($_POST['active']) ? 1 : 0;
 $old_path    = trim($_POST['old_file_path'] ?? '');
 
 if (!$id || empty($title)) {
-    header('Location: ../edit-artifact.php?id=' . $id . '&error=empty');
+    header('Location: ../edit-artifact.php?id=' . $id . '&error=title_empty');
+    exit;
+}
+if (mb_strlen($title) > 20) {
+    header('Location: ../edit-artifact.php?id=' . $id . '&error=title_long');
+    exit;
+}
+if (mb_strlen($description) > 500) {
+    header('Location: ../edit-artifact.php?id=' . $id . '&error=desc_long');
     exit;
 }
 

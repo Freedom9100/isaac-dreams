@@ -19,7 +19,15 @@ $active     = isset($_POST['active']) ? 1 : 0;
 $old_path   = trim($_POST['old_image_path'] ?? '');
 
 if (!$id || empty($title)) {
-    header('Location: ../edit-anomaly.php?id=' . $id . '&error=empty');
+    header('Location: ../edit-anomaly.php?id=' . $id . '&error=title_empty');
+    exit;
+}
+if (mb_strlen($title) > 20) {
+    header('Location: ../edit-anomaly.php?id=' . $id . '&error=title_long');
+    exit;
+}
+if (mb_strlen($lore) > 1000) {
+    header('Location: ../edit-anomaly.php?id=' . $id . '&error=lore_long');
     exit;
 }
 

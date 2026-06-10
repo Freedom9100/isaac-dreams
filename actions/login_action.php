@@ -12,8 +12,12 @@ $login    = trim($_POST['email'] ?? '');
 $password = $_POST['password'] ?? '';
 
 // Проверяем что поля заполнены
-if (empty($login) || empty($password)) {
-    header('Location: ../index.php?page=login&error=empty');
+if (empty($login)) {
+    header('Location: ../index.php?page=login&error=email_empty');
+    exit;
+}
+if (empty($password)) {
+    header('Location: ../index.php?page=login&error=pass_empty&email=' . urlencode($login));
     exit;
 }
 

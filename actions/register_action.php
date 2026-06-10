@@ -14,20 +14,34 @@ $password = $_POST['password'] ?? '';
 $confirm  = $_POST['password_confirm'] ?? '';
 
 // Проверяем что поля заполнены
-if (empty($name) || empty($login) || empty($password)) {
-    header('Location: ../index.php?page=register&error=empty');
+if (empty($name)) {
+    header('Location: ../index.php?page=register&error=name_empty&email=' . urlencode($login));
+    exit;
+}
+if (empty($login)) {
+    header('Location: ../index.php?page=register&error=email_empty&name=' . urlencode($name));
+    exit;
+}
+if (empty($password)) {
+    header('Location: ../index.php?page=register&error=pass_empty&name=' . urlencode($name) . '&email=' . urlencode($login));
+    exit;
+}
+
+// Проверяем формат email
+if (!filter_var($login, FILTER_VALIDATE_EMAIL)) {
+    header('Location: ../index.php?page=register&error=invalid_email&name=' . urlencode($name) . '&email=' . urlencode($login));
     exit;
 }
 
 // Проверяем совпадение паролей
 if ($password !== $confirm) {
-    header('Location: ../index.php?page=register&error=mismatch');
+    header('Location: ../index.php?page=register&error=mismatch&name=' . urlencode($name) . '&email=' . urlencode($login));
     exit;
 }
 
 // Минимальная длина пароля
 if (strlen($password) < 6) {
-    header('Location: ../index.php?page=register&error=short');
+    header('Location: ../index.php?page=register&error=short&name=' . urlencode($name) . '&email=' . urlencode($login));
     exit;
 }
 

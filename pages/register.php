@@ -7,11 +7,14 @@ if (isset($_SESSION['user_id'])) {
 
 // Текст ошибки по коду из GET-параметра
 $error_messages = [
-    'empty'    => 'Заполни все поля.',
-    'mismatch' => 'Пароли не совпадают.',
-    'short'    => 'Пароль должен быть не менее 6 символов.',
-    'exists'   => 'Этот email уже зарегистрирован.',
-    'db'       => 'Ошибка базы данных. Убедитесь что таблицы созданы (database.sql).',
+    'name_empty'    => 'Введи кодовое имя.',
+    'email_empty'   => 'Введи адрес электронной связи.',
+    'pass_empty'    => 'Введи код пробуждения.',
+    'invalid_email' => 'Неверный формат адреса электронной связи.',
+    'mismatch'      => 'Коды пробуждения не совпадают.',
+    'short'         => 'Код пробуждения должен содержать не менее 6 символов.',
+    'exists'        => 'Этот адрес уже зарегистрирован в системе.',
+    'db'            => 'Ошибка базы данных. Убедитесь что таблицы созданы.',
 ];
 $error = isset($_GET['error']) ? ($error_messages[$_GET['error']] ?? '') : '';
 ?>
@@ -66,7 +69,7 @@ $error = isset($_GET['error']) ? ($error_messages[$_GET['error']] ?? '') : '';
                     <p class="auth-error"><?= htmlspecialchars($error) ?></p>
                 <?php endif; ?>
 
-                <form class="auth-form" action="actions/register_action.php" method="post">
+                <form class="auth-form" action="actions/register_action.php" method="post" novalidate>
 
                     <div class="form-group">
                         <label class="form-label" for="name">Кодовое имя</label>
@@ -77,8 +80,7 @@ $error = isset($_GET['error']) ? ($error_messages[$_GET['error']] ?? '') : '';
                                 id="name"
                                 name="name"
                                 placeholder="Иван Иванов"
-                                value="<?= htmlspecialchars($_GET['name'] ?? '') ?>"
-                                required>
+                                value="<?= htmlspecialchars($_GET['name'] ?? '') ?>">
                         </div>
                     </div>
 
@@ -91,8 +93,7 @@ $error = isset($_GET['error']) ? ($error_messages[$_GET['error']] ?? '') : '';
                                 id="email"
                                 name="email"
                                 placeholder="example@dormant.ru"
-                                value="<?= htmlspecialchars($_GET['email'] ?? '') ?>"
-                                required>
+                                value="<?= htmlspecialchars($_GET['email'] ?? '') ?>">
                         </div>
                     </div>
 
@@ -105,8 +106,7 @@ $error = isset($_GET['error']) ? ($error_messages[$_GET['error']] ?? '') : '';
                                     type="password"
                                     id="password"
                                     name="password"
-                                    placeholder="··········"
-                                    required>
+                                    placeholder="··········">
                                 <button type="button" class="input-icon" id="toggle-password">
                                     <img src="assets/icons/check.svg" alt="Показать пароль">
                                 </button>
@@ -120,8 +120,7 @@ $error = isset($_GET['error']) ? ($error_messages[$_GET['error']] ?? '') : '';
                                     type="password"
                                     id="password-confirm"
                                     name="password_confirm"
-                                    placeholder="··········"
-                                    required>
+                                    placeholder="··········">
                                 <button type="button" class="input-icon" id="toggle-confirm">
                                     <img src="assets/icons/check.svg" alt="Показать пароль">
                                 </button>

@@ -17,7 +17,15 @@ $sticker_id = !empty($_POST['sticker_id']) ? (int) $_POST['sticker_id'] : null;
 $active     = isset($_POST['active']) ? 1 : 0;
 
 if (empty($title)) {
-    header('Location: ../add-anomaly.php?error=empty');
+    header('Location: ../add-anomaly.php?error=title_empty');
+    exit;
+}
+if (mb_strlen($title) > 20) {
+    header('Location: ../add-anomaly.php?error=title_long');
+    exit;
+}
+if (mb_strlen($lore) > 1000) {
+    header('Location: ../add-anomaly.php?error=lore_long');
     exit;
 }
 

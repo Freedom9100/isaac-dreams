@@ -5,8 +5,12 @@ $active_page = 'artifacts';
 
 $error = '';
 if (isset($_GET['error'])) {
-    if ($_GET['error'] === 'empty')    $error = 'Название обязательно для заполнения.';
-    if ($_GET['error'] === 'filetype') $error = 'Допустимые форматы: JPG, PNG.';
+    switch ($_GET['error']) {
+        case 'title_empty': $error = 'Ошибка: название обязательно для заполнения.'; break;
+        case 'title_long':  $error = 'Ошибка: название не должно превышать 20 символов.'; break;
+        case 'desc_long':   $error = 'Ошибка: описание не должно превышать 500 символов.'; break;
+        case 'filetype':    $error = 'Ошибка: допустимые форматы изображения — JPG, PNG.'; break;
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -33,18 +37,18 @@ if (isset($_GET['error'])) {
         <?php endif; ?>
 
         <div class="admin-form-card">
-            <form method="post" action="actions/create_artifact.php" enctype="multipart/form-data">
+            <form method="post" action="actions/create_artifact.php" enctype="multipart/form-data" novalidate>
 
                 <div class="form-row-2">
                     <div>
                         <div class="form-group">
                             <label class="form-label">Название артефакта</label>
-                            <input type="text" name="title" class="form-input" placeholder="Введите название" required>
-                        </div>
+                            <input type="text" name="title" class="form-input" placeholder="Введите название" maxlength="20">
+                                        </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Описание</label>
-                            <textarea name="description" class="form-textarea" placeholder="Краткое описание артефакта..."></textarea>
+                                        <div class="form-group">
+                                            <label class="form-label">Описание</label>
+                                            <textarea name="description" class="form-textarea" placeholder="Краткое описание артефакта..." maxlength="500"></textarea>
                         </div>
 
                         <label class="form-check">

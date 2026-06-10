@@ -16,7 +16,15 @@ $description = trim($_POST['description'] ?? '');
 $active      = isset($_POST['active']) ? 1 : 0;
 
 if (empty($title)) {
-    header('Location: ../add-artifact.php?error=empty');
+    header('Location: ../add-artifact.php?error=title_empty');
+    exit;
+}
+if (mb_strlen($title) > 20) {
+    header('Location: ../add-artifact.php?error=title_long');
+    exit;
+}
+if (mb_strlen($description) > 500) {
+    header('Location: ../add-artifact.php?error=desc_long');
     exit;
 }
 

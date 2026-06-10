@@ -7,9 +7,10 @@ if (isset($_SESSION['user_id'])) {
 
 // Текст ошибки по коду из GET-параметра
 $error_messages = [
-    'empty' => 'Заполни все поля.',
-    'wrong' => 'Неверный логин или пароль.',
-    'db'    => 'Ошибка базы данных. Убедитесь что таблицы созданы.',
+    'email_empty' => 'Введи адрес электронной связи.',
+    'pass_empty'  => 'Введи код пробуждения.',
+    'wrong'       => 'Неверный логин или пароль.',
+    'db'          => 'Ошибка базы данных. Убедитесь что таблицы созданы.',
 ];
 $error = isset($_GET['error']) ? ($error_messages[$_GET['error']] ?? '') : '';
 ?>
@@ -64,7 +65,7 @@ $error = isset($_GET['error']) ? ($error_messages[$_GET['error']] ?? '') : '';
                     <p class="auth-error"><?= htmlspecialchars($error) ?></p>
                 <?php endif; ?>
 
-                <form class="auth-form" action="actions/login_action.php" method="post">
+                <form class="auth-form" action="actions/login_action.php" method="post" novalidate>
 
                     <div class="form-group">
                         <label class="form-label" for="email">Имя спящего</label>
@@ -75,8 +76,7 @@ $error = isset($_GET['error']) ? ($error_messages[$_GET['error']] ?? '') : '';
                                 id="email"
                                 name="email"
                                 placeholder="example@dormant.ru"
-                                value="<?= htmlspecialchars($_GET['email'] ?? '') ?>"
-                                required>
+                                value="<?= htmlspecialchars($_GET['email'] ?? '') ?>">
                         </div>
                     </div>
 
@@ -88,8 +88,7 @@ $error = isset($_GET['error']) ? ($error_messages[$_GET['error']] ?? '') : '';
                                 type="password"
                                 id="password"
                                 name="password"
-                                placeholder="··········"
-                                required>
+                                placeholder="··········">
                             <button type="button" class="input-icon" id="toggle-password">
                                 <img src="assets/icons/check.svg" alt="Показать пароль" id="eye-icon">
                             </button>

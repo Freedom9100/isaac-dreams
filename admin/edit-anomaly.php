@@ -24,8 +24,13 @@ $stmt2 = $pdo->query("SELECT id, title FROM stickers WHERE active = 1 ORDER BY t
 $sticker_list = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
 $error = '';
-if (isset($_GET['error']) && $_GET['error'] === 'empty') {
-    $error = 'Название обязательно для заполнения.';
+if (isset($_GET['error'])) {
+    switch ($_GET['error']) {
+        case 'title_empty': $error = 'Ошибка: название обязательно для заполнения.'; break;
+        case 'title_long':  $error = 'Ошибка: название не должно превышать 20 символов.'; break;
+        case 'lore_long':   $error = 'Ошибка: описание аномалии не должно превышать 1000 символов.'; break;
+        case 'filetype':    $error = 'Ошибка: допустимые форматы изображения — JPG, PNG.'; break;
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -52,7 +57,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'empty') {
         <?php endif; ?>
 
         <div class="admin-form-card">
-            <form method="post" action="actions/update_stage.php" enctype="multipart/form-data">
+            <form method="post" action="actions/update_stage.php" enctype="multipart/form-data" novalidate>
                 <input type="hidden" name="id" value="<?= $stage['id'] ?>">
                 <input type="hidden" name="old_image_path" value="<?= htmlspecialchars($stage['image_path']) ?>">
 
@@ -60,7 +65,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'empty') {
                     <div>
                         <div class="form-group">
                             <label class="form-label">Название аномалии</label>
-                            <input type="text" name="title" class="form-input" value="<?= htmlspecialchars($stage['title']) ?>" required>
+                            <input type="text" name="title" class="form-input" value="<?= htmlspecialchars($stage['title']) ?>" maxlength="20">
                         </div>
 
                         <div class="form-group">
@@ -77,7 +82,7 @@ if (isset($_GET['error']) && $_GET['error'] === 'empty') {
 
                         <div class="form-group">
                             <label class="form-label">Сюжетная сводка (лор)</label>
-                            <textarea name="lore" class="form-textarea"><?= htmlspecialchars($stage['lore']) ?></textarea>
+                            <textarea name="lore" class="form-textarea" maxlength="1000"><?= htmlspecialchars($stage['lore']) ?></textarea>
                         </div>
 
                         <label class="form-check">

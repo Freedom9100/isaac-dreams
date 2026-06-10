@@ -10,8 +10,12 @@ $sticker_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $error = '';
 if (isset($_GET['error'])) {
-    if ($_GET['error'] === 'empty')    $error = 'Название обязательно для заполнения.';
-    if ($_GET['error'] === 'filetype') $error = 'Допустимые форматы: JPG, PNG.';
+    switch ($_GET['error']) {
+        case 'title_empty': $error = 'Ошибка: название обязательно для заполнения.'; break;
+        case 'title_long':  $error = 'Ошибка: название не должно превышать 20 символов.'; break;
+        case 'lore_long':   $error = 'Ошибка: описание аномалии не должно превышать 1000 символов.'; break;
+        case 'filetype':    $error = 'Ошибка: допустимые форматы изображения — JPG, PNG.'; break;
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -38,13 +42,13 @@ if (isset($_GET['error'])) {
         <?php endif; ?>
 
         <div class="admin-form-card">
-            <form method="post" action="actions/create_stage.php" enctype="multipart/form-data">
+            <form method="post" action="actions/create_stage.php" enctype="multipart/form-data" novalidate>
 
                 <div class="form-row-2">
                     <div>
                         <div class="form-group">
                             <label class="form-label">Название аномалии</label>
-                            <input type="text" name="title" class="form-input" placeholder="Введите название" required>
+                            <input type="text" name="title" class="form-input" placeholder="Введите название" maxlength="20">
                         </div>
 
                         <div class="form-group">
@@ -59,7 +63,7 @@ if (isset($_GET['error'])) {
 
                         <div class="form-group">
                             <label class="form-label">Сюжетная сводка (лор)</label>
-                            <textarea name="lore" class="form-textarea" placeholder="Описание аномалии..."></textarea>
+                            <textarea name="lore" class="form-textarea" placeholder="Описание аномалии..." maxlength="1000"></textarea>
                         </div>
 
                         <label class="form-check">
