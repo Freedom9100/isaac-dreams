@@ -8,6 +8,7 @@ if (isset($_SESSION['user_id'])) {
 // Текст ошибки по коду из GET-параметра
 $error_messages = [
     'name_empty'    => 'Введи кодовое имя.',
+    'name_long'     => 'Кодовое имя не должно превышать 20 символов.',
     'email_empty'   => 'Введи адрес электронной связи.',
     'pass_empty'    => 'Введи код пробуждения.',
     'invalid_email' => 'Неверный формат адреса электронной связи.',
@@ -80,6 +81,7 @@ $error = isset($_GET['error']) ? ($error_messages[$_GET['error']] ?? '') : '';
                                 id="name"
                                 name="name"
                                 placeholder="Иван Иванов"
+                                maxlength="20"
                                 value="<?= htmlspecialchars($_GET['name'] ?? '') ?>">
                         </div>
                     </div>

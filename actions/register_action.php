@@ -18,6 +18,10 @@ if (empty($name)) {
     header('Location: ../index.php?page=register&error=name_empty&email=' . urlencode($login));
     exit;
 }
+if (mb_strlen($name) > 20) {
+    header('Location: ../index.php?page=register&error=name_long&email=' . urlencode($login));
+    exit;
+}
 if (empty($login)) {
     header('Location: ../index.php?page=register&error=email_empty&name=' . urlencode($name));
     exit;
