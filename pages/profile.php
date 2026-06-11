@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 require_once 'config/db.php';
 require_once 'config/levels.php';
 
-// Загружаем прогресс из БД (на случай если сессия устарела)
+// Загружаем прогресс из БД
 $prog_stmt = $pdo->prepare("SELECT progress FROM users WHERE id = ?");
 $prog_stmt->execute([$_SESSION['user_id']]);
 $prog_row = $prog_stmt->fetch(PDO::FETCH_ASSOC);
