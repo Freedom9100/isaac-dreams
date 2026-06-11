@@ -524,6 +524,19 @@ body {
 }
 
 /* чекбокс */
+.form-hint {
+    display: block;
+    font-size: 11px;
+    color: #999;
+    margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.form-hint--limit {
+    color: #c0392b;
+    font-weight: bold;
+}
+
 .form-check {
     display: flex;
     align-items: center;
@@ -575,6 +588,103 @@ body {
     letter-spacing: 0.04em;
     display: block;
     margin-bottom: 8px;
+}
+
+/* уведомления */
+.admin-alert {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    border: 2px solid;
+}
+
+.admin-alert--ok {
+    color: var(--sys-success);
+    border-color: var(--sys-success);
+    background: #f0f5ef;
+}
+
+.admin-alert--err {
+    color: var(--sys-error);
+    border-color: var(--sys-error);
+    background: #fdf0f0;
+}
+
+/* превью текущего изображения в форме редактирования */
+.current-image-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 12px;
+    border: 1px solid var(--light-gray);
+    background: var(--bg-color);
+}
+
+.current-image-preview img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    display: block;
+}
+
+.current-image-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+}
+
+/* модал подтверждения удаления */
+.admin-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-modal-overlay.open {
+    display: flex;
+}
+
+.admin-modal {
+    background: var(--white);
+    border: 2px solid var(--primary-dark);
+    box-shadow: 8px 8px 0px var(--sys-error);
+    padding: 32px 40px;
+    max-width: 400px;
+    width: 90%;
+}
+
+.admin-modal-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.admin-modal-accent {
+    color: var(--sys-error);
+}
+
+.admin-modal-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+.admin-modal-actions {
+    display: flex;
+    gap: 12px;
 }
 
 /* адаптив */
